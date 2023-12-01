@@ -22,6 +22,7 @@ export function UserProvider({ children }: any) {
   const logout = () => {
     Cookies.remove(TOKEN_COOKIE_NAME);
     setUser(null);
+    localStorage.clear();
 
     router.push("/auth");
   };
