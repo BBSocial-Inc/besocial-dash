@@ -11,7 +11,7 @@ import Logo from "./Logo";
 
 const navigation = [
   { name: "Pricing", href: "/pricing" },
-  { name: "Docs", href: "https://deadalus.gitbook.io/refir-docs/" },
+  { name: "Docs", href: "https://deadalus.gitbook.io/BeSocial-docs/" },
   { name: "Demo", href: "/demo" },
   // { name: "Company", href: "#" },
 ];
@@ -89,7 +89,7 @@ export default function Nav({ selected }: any) {
         <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="/" className="-m-1.5 p-1.5">
-              <p className={styles.logo}>refir.</p>
+              <p className={styles.logo}>BeSocial.</p>
             </a>
             <button
               type="button"

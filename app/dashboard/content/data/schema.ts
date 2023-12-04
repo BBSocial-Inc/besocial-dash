@@ -6,12 +6,18 @@ export const taskSchema = z.object({
   _id: z.string(),
   caption: z.string(),
   content_url: z.string(),
+  thumbnail_url: z.string(),
   hashtags: z.array(
     z.object({
       _id: z.string(),
       text: z.string(),
     })
   ),
+  creator: z.object({
+    _id: z.string(),
+    username: z.string(),
+  }),
+
   likes: z.number(),
   number_of_comments: z.number(),
   views: z.number(),

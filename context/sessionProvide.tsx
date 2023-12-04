@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import { constants } from "@/lib/utils";
 import { Icons } from "@/components/icons";
+import { GlobalVars } from "@/constants";
 
 const SessionProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(true);
@@ -12,13 +13,15 @@ const SessionProvider = ({ children }: any) => {
   const path = usePathname();
 
   useEffect(() => {
-    const token = Cookies.get(constants.TOKEN_COOKIE_NAME);
+    const token = localStorage.getItem(GlobalVars.ACCES_TOKEN);
 
     if (!token && path.includes("/dashboard")) {
       router.push("/auth");
       setLoading(false);
     } else if (token && path === "/auth") {
       router.push("/dashboard");
+      setLoading(false);
+    } else {
       setLoading(false);
     }
 
@@ -30,6 +33,8 @@ const SessionProvider = ({ children }: any) => {
         router.push("/dashboard");
         setLoading(true);
       }
+    } else {
+      setLoading(false);
     }
 
     if (path == "/auth") {

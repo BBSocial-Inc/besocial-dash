@@ -10,6 +10,8 @@ export const taskSchema = z.object({
   posts: z.number().optional(),
   is_active: z.boolean().optional(),
   text: z.string().optional(),
+  rank: z.number().optional(),
+  total_contents: z.number().optional(),
 });
 
 export type Task = z.infer<typeof taskSchema>;

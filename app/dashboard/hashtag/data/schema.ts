@@ -9,6 +9,7 @@ export const taskSchema = z.object({
   rank: z.number().optional(),
   followers: z.number().optional(),
   contentViews: z.number().optional(),
+  total_contents: z.number().optional(),
   creator: z
     .object({
       _id: z.string().optional(),

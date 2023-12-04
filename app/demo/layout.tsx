@@ -2,35 +2,34 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
-const des =
-  "Refir - Elevate Your Business with Referral Marketing. Drive exponential growth by harnessing the strength of word-of-mouth referrals. Real-time analytics, customizable programs, and seamless integration to fuel your success.";
+const des = "BeSocial - BeSocial.";
 
 export const metadata: Metadata = {
-  title: "Demo - Refir",
+  title: "Demo - BeSocial",
   description: des,
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/favicon.ico",
   },
-  applicationName: "Refir",
+  applicationName: "BeSocial",
   keywords: [
     "Referral",
     "refer",
-    "refir",
+    "BeSocial",
     "refer friends",
     "referal management system",
   ],
   twitter: {
     card: "summary_large_image",
-    title: "Demo - Refir",
+    title: "Demo - BeSocial",
     description: des,
     creator: "@cirlormx",
-    images: ["https://refir.xyz/cover.png"],
+    images: ["https://BeSocial.xyz/cover.png"],
   },
   openGraph: {
-    images: "https://refir.xyz/cover.png",
-    title: "Demo - Refir",
+    images: "https://BeSocial.xyz/cover.png",
+    title: "Demo - BeSocial",
     description: des,
   },
 };

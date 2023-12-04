@@ -20,35 +20,34 @@ import { persistCache } from "apollo3-cache-persist";
 import { GlobalVars } from "@/constants";
 import { UserProvider } from "@/context/userContext";
 
-const des =
-  "Refir - Elevate Your Business with Referral Marketing. Drive exponential growth by harnessing the strength of word-of-mouth referrals. Real-time analytics, customizable programs, and seamless integration to fuel your success.";
+const des = "BeSocial - BeSocial.";
 
 // export const metadata: Metadata = {
-//   title: "Refir - Grow your user-base with referrals",
+//   title: "BeSocial - Grow your user-base with referrals",
 //   description: des,
 //   icons: {
 //     icon: "/favicon.ico",
 //     shortcut: "/favicon.ico",
 //     apple: "/favicon.ico",
 //   },
-//   applicationName: "Refir",
+//   applicationName: "BeSocial",
 //   keywords: [
 //     "Referral",
 //     "refer",
-//     "refir",
+//     "BeSocial",
 //     "refer friends",
 //     "referal management system",
 //   ],
 //   twitter: {
 //     card: "summary_large_image",
-//     title: "Refir - Grow your user-base with referrals",
+//     title: "BeSocial - Grow your user-base with referrals",
 //     description: des,
 //     creator: "@cirlormx",
-//     images: ["https://refir.xyz/cover.png"],
+//     images: ["https://BeSocial.xyz/cover.png"],
 //   },
 //   openGraph: {
-//     images: "https://refir.xyz/cover.png",
-//     title: "Refir - Grow your user-base with referrals",
+//     images: "https://BeSocial.xyz/cover.png",
+//     title: "BeSocial - Grow your user-base with referrals",
 //     description: des,
 //   },
 // };
@@ -95,15 +94,17 @@ export default function RootLayout({
         `}
       </Script>
       <ApolloProvider client={client}>
-        <UserProvider>
-          <body className={inter.className}>
-            <main>
-              {children}
-              <Toaster />
-              <Analytics />
-            </main>
-          </body>
-        </UserProvider>
+        <SessionProvider>
+          <UserProvider>
+            <body className={inter.className}>
+              <main>
+                {children}
+                <Toaster />
+                <Analytics />
+              </main>
+            </body>
+          </UserProvider>
+        </SessionProvider>
       </ApolloProvider>
     </html>
   );

@@ -49,7 +49,7 @@ export function DataTableRowActions<TData>({
     text: "",
   });
 
-  const [action, actionq] = useLazyQuery<any>(REPORT_ACTION, {
+  const [action, actionq] = useMutation<any>(REPORT_ACTION, {
     onCompleted(data) {
       // alert(data?.AdminGetUsers);
       toaster.notify("Successful");

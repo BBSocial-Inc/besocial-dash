@@ -4,7 +4,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { constants } from "@/lib/utils";
-import axiosInstance from "@/lib/axios";
 
 const TOKEN_COOKIE_NAME = constants.TOKEN_COOKIE_NAME;
 

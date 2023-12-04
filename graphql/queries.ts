@@ -102,22 +102,26 @@ export const GET_CONTENT_CAPTION = gql`
   }
 `;
 export const GET_HASHTAGS = gql`
-  query AllHashtags($limit: Int, $page: Int, $sortBy: String) {
-    AllHashtags(limit: $limit, page: $page, sort_by: $sortBy) {
-      _id
-      contentViews
-      creator {
+  query AdminGetAllHashtags($limit: Int, $page: Int) {
+    AdminGetAllHashtags(limit: $limit, page: $page) {
+      data {
         _id
-        name
+        contentViews
+        creator {
+          _id
+          name
+        }
+        posts
+        rank
+        text
+        followers
+        owner {
+          _id
+          name
+        }
+        total_contents
       }
-      posts
-      rank
-      text
-      followers
-      owner {
-        _id
-        name
-      }
+      total
     }
   }
 `;
@@ -133,6 +137,9 @@ export const GET_REPORTS = gql`
         name
         username
       }
+      report_id
+      action
+      action_at
     }
   }
 `;
@@ -177,6 +184,8 @@ export const GET_CATEGORIES = gql`
     AllCategories(limit: $limit, page: $page) {
       _id
       name
+      total_contents
+      rank
     }
   }
 `;
@@ -1135,6 +1144,11 @@ export const ADMIN_CONTENTS = gql`
         likes
         number_of_comments
         views
+        creator {
+          _id
+          username
+        }
+        thumbnail_url
       }
     }
   }

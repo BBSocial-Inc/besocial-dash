@@ -37,6 +37,36 @@ export const columns: ColumnDef<Task>[] = [
       );
     },
   },
+  {
+    accessorKey: "rank",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Rank" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("rank")}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "total_contents",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Number of Contents" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("total_contents")}
+          </span>
+        </div>
+      );
+    },
+  },
   // {
   //   accessorKey: "type",
   //   header: ({ column }) => (

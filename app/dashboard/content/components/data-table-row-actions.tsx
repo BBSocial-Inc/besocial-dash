@@ -96,7 +96,13 @@ export function DataTableRowActions<TData>({
             <DropdownMenuItem>Edit Content</DropdownMenuItem>
           </DialogTrigger>
 
-          {/* <DropdownMenuItem>View user</DropdownMenuItem> */}
+          <DropdownMenuItem
+            onClick={() => {
+              window.open(data?.content_url, "_blank");
+            }}
+          >
+            View Content
+          </DropdownMenuItem>
 
           {/* <DropdownMenuItem>Send notification</DropdownMenuItem> */}
           <DropdownMenuSeparator />

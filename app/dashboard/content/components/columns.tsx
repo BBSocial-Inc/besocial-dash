@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
+import Link from "next/link";
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -16,6 +17,21 @@ export const columns: ColumnDef<Task>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
+  },
+  {
+    accessorKey: "creator",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Creator" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("creator")?.username}
+          </span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "likes",
@@ -85,11 +101,27 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">
+          <span className="max-w-[300px] truncate font-medium">
             {row.getValue("hashtags").map((item, index) => {
               return <text key={index}>{item.text},</text>;
             })}
           </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "thumbnail_url",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Content" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <img
+            src={row.getValue("thumbnail_url")}
+            className=" max-h-[50px] bg-[#eee] truncate font-medium cursor-pointer"
+          />
         </div>
       );
     },

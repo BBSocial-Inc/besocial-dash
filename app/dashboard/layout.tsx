@@ -6,35 +6,34 @@ import { Search } from "./components/search";
 import { UserNav } from "./components/user-nav";
 const inter = Inter({ subsets: ["latin"] });
 
-const des =
-  "Refir - Elevate Your Business with Referral Marketing. Drive exponential growth by harnessing the strength of word-of-mouth referrals. Real-time analytics, customizable programs, and seamless integration to fuel your success.";
+const des = "BeSocial - BeSocial.";
 
 export const metadata: Metadata = {
-  title: "Authenticationn - Refir",
+  title: "Authenticationn - BeSocial",
   description: des,
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/favicon.ico",
   },
-  applicationName: "Refir",
+  applicationName: "BeSocial",
   keywords: [
     "Referral",
     "refer",
-    "refir",
+    "BeSocial",
     "refer friends",
     "referal management system",
   ],
   twitter: {
     card: "summary_large_image",
-    title: "Authenticationn - Refir",
+    title: "Authenticationn - BeSocial",
     description: des,
     creator: "@cirlormx",
-    images: ["https://refir.xyz/cover.png"],
+    images: ["https://BeSocial.xyz/cover.png"],
   },
   openGraph: {
-    images: "https://refir.xyz/cover.png",
-    title: "Authenticationn - Refir",
+    images: "https://BeSocial.xyz/cover.png",
+    title: "Authenticationn - BeSocial",
     description: des,
   },
 };

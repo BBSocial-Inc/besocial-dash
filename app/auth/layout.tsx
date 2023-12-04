@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
-const des =
-  "BeSocial - Elevate Your Business with Referral Marketing. Drive exponential growth by harnessing the strength of word-of-mouth referrals. Real-time analytics, customizable programs, and seamless integration to fuel your success.";
+const des = "BeSocial - BeSocial.";
 
 export const metadata: Metadata = {
   title: "Authenticationn - BeSocial",

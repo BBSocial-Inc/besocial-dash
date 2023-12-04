@@ -93,7 +93,7 @@ export const BLOCK_HASHTAG = gql`
   }
 `;
 export const REPORT_ACTION = gql`
-  query Admin_ReportAction($reportId: String!, $action: String!) {
+  mutation Admin_ReportAction($reportId: String!, $action: String!) {
     Admin_ReportAction(report_id: $reportId, action: $action) {
       status
       message

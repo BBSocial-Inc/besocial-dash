@@ -25,7 +25,7 @@ export default function DashboardLayout() {
             <div className="">
               <h1 className={styles.mainText}>Demo</h1>
               <p className={styles.subText}>
-                See how Refir works with our <br />
+                See how BeSocial works with our <br />
                 interactive demo or a youtube video
               </p>
               <div className={styles.btncon}>
