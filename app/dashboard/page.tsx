@@ -366,10 +366,31 @@ export default function DashboardPage() {
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="col-span-4">
                   <CardHeader>
-                    <CardTitle>Users per day</CardTitle>
+                    <CardTitle>MixPanel Data</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    <Overview />
+                    {/* <Overview /> */}
+                    <div
+                      style={{
+                        left: 0,
+                        width: "100%",
+                        height: "600px",
+                        position: "relative",
+                      }}
+                    >
+                      <iframe
+                        src="https://mixpanel.com/project/2706343/view/3242839/app/boards/embed#id=5770321"
+                        style={{
+                          top: 0,
+                          left: 0,
+                          width: "100%",
+                          height: "100%",
+                          position: "absolute",
+                          border: 0,
+                        }}
+                        allowFullScreen
+                      ></iframe>
+                    </div>
                   </CardContent>
                 </Card>
                 <Card className="col-span-3">

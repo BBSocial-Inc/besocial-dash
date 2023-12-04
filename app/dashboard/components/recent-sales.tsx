@@ -15,7 +15,7 @@ export function RecentSales() {
       console.log(error, "data");
     },
     variables: {
-      limit: 5,
+      limit: 10,
       page: 0,
     },
   });
