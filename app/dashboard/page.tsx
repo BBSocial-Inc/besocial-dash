@@ -73,9 +73,7 @@ export default function DashboardPage() {
                     <div className="text-2xl font-bold">
                       {stats?.real_users}
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      0% from last month
-                    </p>
+                    <p className="text-xs text-muted-foreground">All time</p>
                   </CardContent>
                 </Card>
                 <Card>
@@ -88,9 +86,7 @@ export default function DashboardPage() {
                     <div className="text-2xl font-bold">
                       {stats?.temporal_users}
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      0% from last month
-                    </p>
+                    <p className="text-xs text-muted-foreground">All time</p>
                   </CardContent>
                 </Card>
                 <Card>
@@ -103,9 +99,7 @@ export default function DashboardPage() {
                     <div className="text-2xl font-bold">
                       {stats?.registered_via_apple}
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      0% from last month
-                    </p>
+                    <p className="text-xs text-muted-foreground">All time</p>
                   </CardContent>
                 </Card>
                 <Card>
@@ -118,9 +112,7 @@ export default function DashboardPage() {
                     <div className="text-2xl font-bold">
                       {stats?.registered_via_google}
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      0% from last month
-                    </p>
+                    <p className="text-xs text-muted-foreground">All time</p>
                   </CardContent>
                 </Card>
                 <Card>
@@ -133,9 +125,7 @@ export default function DashboardPage() {
                     <div className="text-2xl font-bold">
                       {stats?.registered_via_email}
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      0% from last month
-                    </p>
+                    <p className="text-xs text-muted-foreground">All time</p>
                   </CardContent>
                 </Card>
                 {/* <Card>
@@ -148,7 +138,7 @@ export default function DashboardPage() {
                   <CardContent>
                     <div className="text-2xl font-bold"></div>
                     <p className="text-xs text-muted-foreground">
-                      0% from last month
+                      All time
                     </p>
                   </CardContent>
                 </Card>
@@ -162,7 +152,7 @@ export default function DashboardPage() {
                   <CardContent>
                     <div className="text-2xl font-bold">0</div>
                     <p className="text-xs text-muted-foreground">
-                      0% from last month
+                      All time
                     </p>
                   </CardContent>
                 </Card>
@@ -176,7 +166,7 @@ export default function DashboardPage() {
                   <CardContent>
                     <div className="text-2xl font-bold">0</div>
                     <p className="text-xs text-muted-foreground">
-                      0% from last month
+                      All time
                     </p>
                   </CardContent>
                 </Card>
@@ -190,7 +180,7 @@ export default function DashboardPage() {
                   <CardContent>
                     <div className="text-2xl font-bold">0</div>
                     <p className="text-xs text-muted-foreground">
-                      0% from last month
+                      All time
                     </p>
                   </CardContent>
                 </Card> */}
@@ -204,7 +194,7 @@ export default function DashboardPage() {
                   <CardContent>
                     <div className="text-2xl font-bold">0</div>
                     <p className="text-xs text-muted-foreground">
-                      0% from last month
+                      All time
                     </p>
                   </CardContent>
                 </Card> */}

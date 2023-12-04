@@ -25,7 +25,7 @@ export default function TaskPage() {
       console.log(error, "data");
     },
     variables: {
-      limit: 50,
+      limit: 290,
       page: 0,
       sortBy: "trending",
     },
@@ -43,13 +43,15 @@ export default function TaskPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{hashtag?.total}</div>
-              <p className="text-xs text-muted-foreground">
-                0% from last month
-              </p>
+              <p className="text-xs text-muted-foreground">All time</p>
             </CardContent>
           </Card>
         </div>
-        <DataTable data={hashtag?.data} columns={columns} />
+        {hashtag?.data ? (
+          <DataTable data={hashtag?.data} columns={columns} />
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );
