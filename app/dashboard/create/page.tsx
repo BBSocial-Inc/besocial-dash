@@ -70,17 +70,18 @@ export default function TaskPage() {
   return (
     <>
       <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-        <Tabs>
+        <Tabs defaultValue="categories">
           <TabsList>
             {/* <TabsTrigger value="cards">Cards</TabsTrigger> */}
             <TabsTrigger value="categories">Categories</TabsTrigger>
             {/* <TabsTrigger value="topics">Topics</TabsTrigger> */}
           </TabsList>
 
-          <TabsContent value="cards" className="space-y-4">
-            <DataTable data={cards} columns={columns} />
-          </TabsContent>
-          <TabsContent value="categories" className="space-y-4">
+          <TabsContent
+            defaultValue="categories"
+            value="categories"
+            className="space-y-4"
+          >
             <DataTable data={categories} columns={columns} />
           </TabsContent>
           {/* <TabsContent value="topics" className="space-y-4">
