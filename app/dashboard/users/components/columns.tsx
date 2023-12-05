@@ -78,15 +78,15 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
-    accessorKey: "device",
+    accessorKey: "platform",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="device" />
+      <DataTableColumnHeader column={column} title="Plaform" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("device")}
+            {row.getValue("platform")}
           </span>
         </div>
       );

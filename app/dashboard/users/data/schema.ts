@@ -11,8 +11,8 @@ export const taskSchema = z.object({
   birthday_admin: z.string().optional(),
   created_at: z.string().optional(),
   // date: z.string(),
-  // device: z.string(),
-  // country: z.string(),
+  platform: z.string(),
+  country: z.string(),
   // date: z.string(),
 });
 

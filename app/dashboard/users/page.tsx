@@ -33,7 +33,7 @@ export default function TaskPage() {
       console.log(error, "data");
     },
     variables: {
-      limit: 400,
+      limit: 1000,
       page: 0,
     },
   });

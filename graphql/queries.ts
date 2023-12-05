@@ -1113,6 +1113,8 @@ export const ADMIN_USER = gql`
       birthday_admin
       auth_type_admin
       created_at
+      country
+      platform
     }
   }
 `;
