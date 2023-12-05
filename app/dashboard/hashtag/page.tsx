@@ -6,6 +6,7 @@ import { useState } from "react";
 import { GET_HASHTAGS } from "@/graphql";
 import { useQuery } from "@apollo/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // export const metadata: Metadata = {
 //   title: "Creare",

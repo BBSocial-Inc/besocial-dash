@@ -28,9 +28,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { ADMIN_BLOCK, ADMIN_WARN } from "@/graphql/mutation";
+import { useEffect, useState } from "react";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { ADMIN_BLOCK, ADMIN_WARN, GET_WARNING } from "@/graphql/mutation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -79,6 +86,30 @@ export function DataTableRowActions<TData>({
       page: 0,
     },
   });
+  const [warnings, setwarnings] = useState([]);
+  const [strike, setstrike] = useState("");
+
+  const [getw, getWarning] = useLazyQuery<any>(GET_WARNING, {
+    onCompleted(data) {
+      // alert(data?.AdminGetUsers);
+      console.log(data?.GetUserWarningStrikes);
+      setwarnings(data?.GetUserWarningStrikes);
+    },
+    onError(error) {
+      toaster.danger("Error");
+      console.log(error, "data");
+    },
+  });
+
+  useEffect(() => {
+    getw({
+      variables: {
+        limit: 50,
+        page: 0,
+        userId: data?._id,
+      },
+    });
+  }, [data?._id, data]);
   return (
     <Dialog>
       <DropdownMenu>
@@ -116,26 +147,67 @@ export function DataTableRowActions<TData>({
         </DropdownMenuContent>
 
         <CornerDialog
-          title={blockq.loading ? "loading" : "Confirm"}
-          confirmLabel="Yes"
+          title={"Confirm Block"}
+          confirmLabel={blockq.loading ? "loading" : "Yes"}
           intent="danger"
           isShown={isShown.state}
-          onCloseComplete={() =>
+          onCloseComplete={() => {
+            if (!strike) return;
             setIsShown({
               ...isShown,
               state: false,
-            })
-          }
+            });
+          }}
           onConfirm={() => {
+            // console.log({
+            //   userId: data?._id,
+            //   warningStrikeId: strike,
+            // });
             block({
               variables: {
                 userId: data?._id,
-                warningStrikeId: "",
+                warningStrikeId: strike,
               },
             });
           }}
         >
           Are your sure you want to perform this action
+          <br />
+          <br />
+          <Label htmlFor="name" className="text-right mt-5">
+            Select Warning Strike
+          </Label>
+          <Select
+            onValueChange={(val) => {
+              setstrike(val);
+            }}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Warning Strike" />
+            </SelectTrigger>
+            <SelectContent>
+              {getWarning.loading ? (
+                <SelectItem value="" disabled>
+                  Loading...
+                </SelectItem>
+              ) : warnings.length < 1 ? (
+                <SelectItem value="" disabled>
+                  No Data
+                </SelectItem>
+              ) : (
+                warnings.map((item, index) => {
+                  return (
+                    <SelectItem key={index} value={item?._id}>
+                      {item.reason}
+                    </SelectItem>
+                  );
+                })
+              )}
+              {/* <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System</SelectItem> */}
+            </SelectContent>
+          </Select>
         </CornerDialog>
       </DropdownMenu>
 
@@ -172,7 +244,7 @@ export function DataTableRowActions<TData>({
               onChange={(v: any) =>
                 setpayload({
                   ...payload,
-                  type: v.target.value,
+                  reason: v.target.value,
                 })
               }
             />
@@ -182,6 +254,7 @@ export function DataTableRowActions<TData>({
           <Button
             type="button"
             onClick={() => {
+              // console.log(data?._id);
               warn({
                 variables: {
                   userId: data?._id,

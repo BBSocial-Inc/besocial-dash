@@ -101,6 +101,17 @@ export const REPORT_ACTION = gql`
     }
   }
 `;
+export const GET_WARNING = gql`
+  query GetUserWarningStrikes($userId: String!, $limit: Int, $page: Int) {
+    GetUserWarningStrikes(user_id: $userId, limit: $limit, page: $page) {
+      _id
+      type
+      strike_count
+      reason
+      status
+    }
+  }
+`;
 
 export const VERIFY_OTP = gql`
   mutation ValidateEmailVerifyOTP(

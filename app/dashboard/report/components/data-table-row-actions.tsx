@@ -64,6 +64,7 @@ export function DataTableRowActions<TData>({
       page: 0,
     },
   });
+
   return (
     <Dialog>
       <DropdownMenu>
@@ -81,7 +82,22 @@ export function DataTableRowActions<TData>({
             <DropdownMenuItem>Add report</DropdownMenuItem>
           </DialogTrigger>
 
-          {/* <DropdownMenuItem disabled>Edit user</DropdownMenuItem> */}
+          <DropdownMenuItem
+            onClick={() => {
+              console.log(data);
+              data?.report_type == "hashtag"
+                ? window.open("/dashboard/hashtag?id=" + data?.report_id)
+                : "";
+              data?.report_type == "content"
+                ? window.open("/dashboard/hashtag?id=" + data?.report_id)
+                : "";
+              data?.report_type == "user"
+                ? window.open("/dashboard/hashtag?id=" + data?.report_id)
+                : "";
+            }}
+          >
+            View Item
+          </DropdownMenuItem>
 
           {/* <DropdownMenuItem>Send notification</DropdownMenuItem> */}
           {/* <DropdownMenuSeparator />
