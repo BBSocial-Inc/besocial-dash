@@ -10,10 +10,14 @@ export const taskSchema = z.object({
   auth_type_admin: z.string().optional(),
   birthday_admin: z.string().optional(),
   created_at: z.string().optional(),
-  // date: z.string(),
   platform: z.string(),
   country: z.string(),
-  // date: z.string(),
+  numberOfContents: z.any(),
+  numberOfHashtags: z.any(),
+  viewsCount: z.any(),
+  referredUsersCount: z.any(),
+  is_blocked: z.any(),
+  bs_pin: z.any(),
 });
 
 export type Task = z.infer<typeof taskSchema>;

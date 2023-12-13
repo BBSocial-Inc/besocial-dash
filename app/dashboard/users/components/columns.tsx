@@ -137,6 +137,99 @@ export const columns: ColumnDef<Task>[] = [
       );
     },
   },
+  {
+    accessorKey: "numberOfContent",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="No. of Contents" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("numberOfContent")}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "numberOfHashtags",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="No. of Hashtags" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("numberOfHashtags")}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "viewsCOunt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Views Count" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("viewsCOunt")}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "referredUsersCount",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Referred Users" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("referredUsersCount")}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "is_blocked",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Blocked" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("is_blocked") ? "YES" : "NO"}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "bs_pin",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Referral Link" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <a
+            href={"https://joinb.social/refer/" + row.getValue("bs_pin")}
+            className="max-w-[500px] truncate font-medium text-[blue]"
+          >
+            Link
+          </a>
+        </div>
+      );
+    },
+  },
 
   {
     id: "actions",

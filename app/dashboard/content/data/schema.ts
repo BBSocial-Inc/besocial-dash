@@ -21,6 +21,7 @@ export const taskSchema = z.object({
   likes: z.number(),
   number_of_comments: z.number(),
   views: z.number(),
+  created_at: z.any(),
 });
 
 export type Task = z.infer<typeof taskSchema>;

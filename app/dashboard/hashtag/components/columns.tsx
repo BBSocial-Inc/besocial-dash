@@ -40,7 +40,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "posts",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Posts" />
+      <DataTableColumnHeader column={column} title="Total contents" />
     ),
     cell: ({ row }) => {
       return (
@@ -127,21 +127,21 @@ export const columns: ColumnDef<Task>[] = [
       );
     },
   },
-  {
-    accessorKey: "total_contents",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Total Contents" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("total_contents")}
-          </span>
-        </div>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "total_contents",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Total Contents" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     return (
+  //       <div className="flex space-x-2">
+  //         <span className="max-w-[500px] truncate font-medium">
+  //           {row.getValue("total_contents")}
+  //         </span>
+  //       </div>
+  //     );
+  //   },
+  // },
 
   {
     id: "actions",

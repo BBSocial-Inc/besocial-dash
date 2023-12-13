@@ -11,7 +11,12 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CalendarDateRangePicker } from "./components/date-range-picker";
 import { Overview } from "./components/overview";
-import { RecentSales } from "./components/recent-sales";
+import {
+  NewUser,
+  PopularUser,
+  RecentSales,
+  RecentUser,
+} from "./components/recent-sales";
 import { ADMIN_STATS, TRENDING_USERS } from "@/graphql";
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
@@ -392,6 +397,35 @@ export default function DashboardPage() {
                   </CardHeader>
                   <CardContent>
                     <RecentSales />
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+                <Card className="col-span-2">
+                  <CardHeader>
+                    <CardTitle>New Creators</CardTitle>
+                    <CardDescription>...</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <NewUser />
+                  </CardContent>
+                </Card>
+                <Card className="col-span-2">
+                  <CardHeader>
+                    <CardTitle>Recent Creators</CardTitle>
+                    <CardDescription>...</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <RecentUser />
+                  </CardContent>
+                </Card>
+                <Card className="col-span-2">
+                  <CardHeader>
+                    <CardTitle>Popular Creators</CardTitle>
+                    <CardDescription>...</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <PopularUser />
                   </CardContent>
                 </Card>
               </div>

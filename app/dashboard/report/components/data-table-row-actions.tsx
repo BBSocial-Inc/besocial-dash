@@ -151,13 +151,14 @@ export function DataTableRowActions<TData>({
               className="col-span-3"
             />
           </div> */}
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-4 items-center gap-4 flex flex-col">
             <Label htmlFor="username" className="text-right">
               Action
             </Label>
             <Input
               id="username"
-              defaultValue="content policy violation"
+              // defaultValue="content policy violation"
+              placeholder="Type in action taken on this report"
               className="col-span-3"
               onChange={(v: any) =>
                 setpayload({

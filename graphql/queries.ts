@@ -1066,6 +1066,54 @@ export const TRENDING_USERS = gql`
     }
   }
 `;
+export const NEW_USERS = gql`
+  query GetNewCreators($limit: Int, $page: Int) {
+    GetNewCreators(limit: $limit, page: $page) {
+      _id
+      name
+      username
+      profile_picture
+      cover_picture
+      bio
+      socials
+      followers
+      following
+      is_following
+    }
+  }
+`;
+export const RECENT_USERS = gql`
+  query GetRecentCreators($limit: Int, $page: Int) {
+    GetRecentCreators(limit: $limit, page: $page) {
+      _id
+      name
+      username
+      profile_picture
+      cover_picture
+      bio
+      socials
+      followers
+      following
+      is_following
+    }
+  }
+`;
+export const POPULAR_USERS = gql`
+  query AdminGetPopularCreators($limit: Int, $page: Int) {
+    AdminGetPopularCreators(limit: $limit, page: $page) {
+      _id
+      name
+      username
+      profile_picture
+      cover_picture
+      bio
+      socials
+      followers
+      following
+      is_following
+    }
+  }
+`;
 export const IS_USER_BLOCKED = gql`
   query IsUserBlocked($userId: String!) {
     isUserBlocked(user_id: $userId) {
@@ -1115,6 +1163,12 @@ export const ADMIN_USER = gql`
       created_at
       country
       platform
+      numberOfContents
+      numberOfHashtags
+      viewsCount
+      referredUsersCount
+      is_blocked
+      bs_pin
     }
   }
 `;
@@ -1151,6 +1205,7 @@ export const ADMIN_CONTENTS = gql`
           username
         }
         thumbnail_url
+        created_at
       }
     }
   }

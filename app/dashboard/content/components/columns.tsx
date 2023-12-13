@@ -126,6 +126,15 @@ export const columns: ColumnDef<Task>[] = [
       );
     },
   },
+  {
+    accessorKey: "created_at",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Content" />
+    ),
+    cell: ({ row }) => {
+      return <div className="flex space-x-2">{row.getValue("created_at")}</div>;
+    },
+  },
 
   {
     id: "actions",
