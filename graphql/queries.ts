@@ -1186,8 +1186,13 @@ export const ADMIN_STATS = gql`
 `;
 
 export const ADMIN_CONTENTS = gql`
-  query AdminGetAllContents($limit: Int, $page: Int) {
-    AdminGetAllContents(limit: $limit, page: $page) {
+  query AdminGetAllContents(
+    $limit: Int
+    $page: Int
+    $from: DateTime
+    $to: DateTime
+  ) {
+    AdminGetAllContents(limit: $limit, page: $page, from: $from, to: $to) {
       total
       data {
         _id
