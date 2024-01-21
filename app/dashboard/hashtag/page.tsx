@@ -26,7 +26,7 @@ export default function TaskPage() {
       console.log(error, "data");
     },
     variables: {
-      limit: 290,
+      limit: 10000,
       page: 0,
       sortBy: "trending",
     },

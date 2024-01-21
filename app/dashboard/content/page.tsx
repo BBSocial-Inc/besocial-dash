@@ -37,7 +37,7 @@ export default function TaskPage() {
       console.log(error, "data");
     },
     variables: {
-      limit: 50,
+      limit: 10000,
       page: 0,
     },
   });
@@ -52,7 +52,7 @@ export default function TaskPage() {
       console.log(error, "data");
     },
     variables: {
-      limit: 50,
+      limit: 10000,
       page: 0,
     },
   });
@@ -86,12 +86,6 @@ export default function TaskPage() {
               let start = new Date(date.from);
               let end = new Date(date.to);
 
-              // console.log({
-              //   limit: 50,
-              //   page: 0,
-              //   from: start.toISOString(),
-              //   to: end.toISOString(),
-              // });
               trendingUx({
                 variables: {
                   limit: 50,
