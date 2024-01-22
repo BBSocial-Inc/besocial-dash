@@ -27,7 +27,7 @@ export default function TaskPage() {
       console.log(error, "data");
     },
     variables: {
-      limit: 10000,
+      limit: 100,
       page: 0,
     },
   });

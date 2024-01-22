@@ -12,38 +12,26 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/page.js"
+    ],
     "/dashboard/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/dashboard/layout.css",
       "static/chunks/app/dashboard/layout.js"
     ],
-    "/dashboard/page": [
+    "/dashboard/content/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/page.js"
+      "static/chunks/app/dashboard/content/page.js"
     ],
-    "/auth/layout": [
+    "/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/auth/layout.css",
-      "static/chunks/app/auth/layout.js"
-    ],
-    "/auth/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/auth/page.css",
-      "static/chunks/app/auth/page.js"
-    ],
-    "/dashboard/users/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/users/page.js"
-    ],
-    "/dashboard/report/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/report/page.js"
+      "static/chunks/app/not-found.js"
     ]
   }
 }
