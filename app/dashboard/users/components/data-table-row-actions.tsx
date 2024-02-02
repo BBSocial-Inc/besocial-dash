@@ -67,7 +67,7 @@ export function DataTableRowActions<TData>({
       console.log(error, "data");
     },
     variables: {
-      limit: 50,
+      limit: 20,
       page: 0,
     },
   });
@@ -82,7 +82,7 @@ export function DataTableRowActions<TData>({
       console.log(error, "data");
     },
     variables: {
-      limit: 50,
+      limit: 20,
       page: 0,
     },
   });
