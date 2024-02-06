@@ -37,7 +37,7 @@ export default function DashboardPage() {
       console.log(error, "data");
     },
     variables: {
-      limit: 50,
+      limit: 20,
       page: 0,
     },
   });
