@@ -1173,6 +1173,14 @@ export const ADMIN_USER = gql`
   }
 `;
 
+export const ADMIN_USER_COUNT = gql`
+  query AdminGetUsersCount {
+    AdminGetUsersCount {
+      count
+    }
+  }
+`;
+
 export const ADMIN_STATS = gql`
   query AdminGetUsersStats {
     AdminGetUsersStats {
