@@ -102,8 +102,8 @@ export const GET_CONTENT_CAPTION = gql`
   }
 `;
 export const GET_HASHTAGS = gql`
-  query AdminGetAllHashtags($limit: Int, $page: Int) {
-    AdminGetAllHashtags(limit: $limit, page: $page) {
+  query AdminGetAllHashtags($limit: Int, $page: Int, $search: String) {
+    AdminGetAllHashtags(limit: $limit, page: $page, search: $search) {
       data {
         _id
         contentViews

@@ -57,6 +57,10 @@ export function DataTable<TData, TValue>({
     []
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  
+  React.useEffect(() => {
+    table.setPageIndex(() => 0)
+  }, [filter]);
 
   const table = useReactTable({
     data,

@@ -29,7 +29,7 @@ export default function TaskPage() {
       // alert(data?.AdminGetUsers);
       settasks(data?.AdminGetUsers.users);
 
-      let pageCount = Math.round(data?.AdminGetUsers?.count / pagination.pageSize);
+      let pageCount = Math.ceil(data?.AdminGetUsers?.count / pagination.pageSize);
       pageCount = pageCount == 0 ? 1 : pageCount;
       setUsersCount(pageCount);
     },

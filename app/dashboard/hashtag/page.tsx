@@ -16,19 +16,28 @@ import { useRouter, useSearchParams } from "next/navigation";
 // Simulate a database read for tasks.
 
 export default function TaskPage() {
+  const [filter, setFilter] = useState("");
+  const [pagination, setPagination] = useState({
+    pageSize: 10,
+    pageIndex: 0,
+  });
+  const [pageCount, setPageCount] = useState<number>(100);
   const [hashtag, sethashtag] = useState<any>([]);
 
-  const trendingU = useQuery(GET_HASHTAGS, {
+  const { loading, error, data } = useQuery(GET_HASHTAGS, {
     onCompleted(data) {
       sethashtag(data?.AdminGetAllHashtags);
+      let pageCount = Math.ceil(data?.AdminGetAllHashtags?.total / pagination.pageSize);
+      pageCount = pageCount == 0 ? 1 : pageCount;
+      setPageCount(pageCount);
     },
     onError(error) {
       console.log(error, "data");
     },
     variables: {
-      limit: 20,
-      page: 0,
-      sortBy: "trending",
+      limit: pagination.pageSize,
+      page: pagination.pageIndex,
+      search: filter
     },
   });
 
@@ -49,7 +58,7 @@ export default function TaskPage() {
           </Card>
         </div>
         {hashtag?.data ? (
-          <DataTable data={hashtag?.data} columns={columns} />
+          <DataTable data={hashtag?.data} columns={columns}  pagination={pagination} onPaginationChange={setPagination} pageCount={pageCount} filter={filter} onGlobalFilterChange={setFilter} loading={loading}/>
         ) : (
           <></>
         )}
