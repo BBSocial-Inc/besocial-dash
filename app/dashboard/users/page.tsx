@@ -24,7 +24,7 @@ export default function TaskPage() {
 
   const countries = [];
 
-  const trendingU = useQuery(ADMIN_USER, {
+  const { loading, error, data } = useQuery(ADMIN_USER, {
     onCompleted(data) {
       // alert(data?.AdminGetUsers);
       settasks(data?.AdminGetUsers);
@@ -83,7 +83,7 @@ export default function TaskPage() {
   return (
     <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
       <div>{countries && countries.length}dd</div>
-      {tasks && <DataTable data={tasks} columns={columns} pagination={pagination} onPaginationChange={setPagination} pageCount={usersCount} filter={filter} onGlobalFilterChange={setFilter}/>}
+      {tasks && <DataTable data={tasks} columns={columns} pagination={pagination} onPaginationChange={setPagination} pageCount={usersCount} filter={filter} onGlobalFilterChange={setFilter} loading={loading}/>}
     </div>
   );
 }

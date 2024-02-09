@@ -27,6 +27,7 @@ import {
 
 import { DataTablePagination } from "../components/data-table-pagination";
 import { DataTableToolbar } from "../components/data-table-toolbar";
+import { Icons } from "@/components/icons";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -35,7 +36,8 @@ interface DataTableProps<TData, TValue> {
   onPaginationChange: any,
   pageCount: any,
   onGlobalFilterChange: any,
-  filter:any
+  filter: any,
+  loading: any 
 }
 
 export function DataTable<TData, TValue>({
@@ -45,7 +47,8 @@ export function DataTable<TData, TValue>({
   onPaginationChange,
   pageCount,
   onGlobalFilterChange,
-  filter
+  filter,
+  loading
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -108,7 +111,7 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {!loading ? (table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -133,7 +136,21 @@ export function DataTable<TData, TValue>({
                   No results.
                 </TableCell>
               </TableRow>
-            )}
+            ))
+            :
+            (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                <div className="flex justify-center items-center">
+                  <Icons.spinner className="h-4 w-4 animate-spin" />
+                </div>
+                </TableCell>
+              </TableRow>
+            )
+          }
           </TableBody>
         </Table>
       </div>
