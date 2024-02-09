@@ -33,7 +33,9 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   pagination: any,
   onPaginationChange: any,
-  pageCount: any
+  pageCount: any,
+  onGlobalFilterChange: any,
+  filter:any
 }
 
 export function DataTable<TData, TValue>({
@@ -41,7 +43,9 @@ export function DataTable<TData, TValue>({
   data,
   pagination,
   onPaginationChange,
-  pageCount
+  pageCount,
+  onGlobalFilterChange,
+  filter
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -59,8 +63,11 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       columnFilters,
-      pagination
+      pagination,
+      globalFilter: filter
     },
+    manualFiltering: true,
+    onGlobalFilterChange: onGlobalFilterChange,
     manualPagination: true,
     onPaginationChange,
     pageCount: pageCount,
@@ -79,7 +86,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} globalFilter={filter} onGlobalFilterChange={onGlobalFilterChange}/>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

@@ -14,6 +14,7 @@ import { ADMIN_USER, ADMIN_USER_COUNT } from "@/graphql";
 // Simulate a database read for tasks.
 
 export default function TaskPage() {
+  const [filter, setFilter] = useState("");
   const [pagination, setPagination] = useState({
     pageSize: 10,
     pageIndex: 0,
@@ -34,6 +35,7 @@ export default function TaskPage() {
     variables: {
       limit: pagination.pageSize,
       page: pagination.pageIndex,
+      search: filter
     },
   });
 
@@ -47,6 +49,10 @@ export default function TaskPage() {
     },
     variables: {}
   });
+
+  useEffect(() => {
+    console.log("Filter ======>", filter)
+  }, [filter])
 
   useEffect(() => {
     console.log(tasks);
@@ -77,7 +83,7 @@ export default function TaskPage() {
   return (
     <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
       <div>{countries && countries.length}dd</div>
-      {tasks && <DataTable data={tasks} columns={columns} pagination={pagination} onPaginationChange={setPagination} pageCount={usersCount}/>}
+      {tasks && <DataTable data={tasks} columns={columns} pagination={pagination} onPaginationChange={setPagination} pageCount={usersCount} filter={filter} onGlobalFilterChange={setFilter}/>}
     </div>
   );
 }
