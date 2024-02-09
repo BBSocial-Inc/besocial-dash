@@ -1154,21 +1154,24 @@ export const GET_USER_TO_TAG = gql`
 export const ADMIN_USER = gql`
   query AdminGetUsers($limit: Int, $page: Int, $search: String) {
     AdminGetUsers(limit: $limit, page: $page, search: $search) {
-      _id
-      name
-      username
-      email_admin
-      birthday_admin
-      auth_type_admin
-      created_at
-      country
-      platform
-      numberOfContents
-      numberOfHashtags
-      viewsCount
-      referredUsersCount
-      is_blocked
-      bs_pin
+      count
+      users{
+        _id
+        name
+        username
+        email_admin
+        birthday_admin
+        auth_type_admin
+        created_at
+        country
+        platform
+        numberOfContents
+        numberOfHashtags
+        viewsCount
+        referredUsersCount
+        is_blocked
+        bs_pin
+      }
     }
   }
 `;

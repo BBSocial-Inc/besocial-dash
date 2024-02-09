@@ -27,7 +27,11 @@ export default function TaskPage() {
   const { loading, error, data } = useQuery(ADMIN_USER, {
     onCompleted(data) {
       // alert(data?.AdminGetUsers);
-      settasks(data?.AdminGetUsers);
+      settasks(data?.AdminGetUsers.users);
+
+      let pageCount = Math.round(data?.AdminGetUsers?.count / pagination.pageSize);
+      pageCount = pageCount == 0 ? 1 : pageCount;
+      setUsersCount(pageCount);
     },
     onError(error) {
       console.log(error, "data");
@@ -39,24 +43,7 @@ export default function TaskPage() {
     },
   });
 
-  const _ = useQuery(ADMIN_USER_COUNT, {
-    onCompleted(data) {
-      // alert(data?.AdminGetUsers);
-      setUsersCount(Math.round(data?.AdminGetUsersCount?.count / pagination.pageSize));
-    },
-    onError(error) {
-      console.log(error, "data");
-    },
-    variables: {}
-  });
-
   useEffect(() => {
-    console.log("Filter ======>", filter)
-  }, [filter])
-
-  useEffect(() => {
-    console.log(tasks);
-
     tasks?.map((x) => {
       if (x.country) {
         countries.push(x.country);
