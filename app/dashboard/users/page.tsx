@@ -4,7 +4,7 @@ import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { ADMIN_USER } from "@/graphql";
+import { ADMIN_USER, ADMIN_USER_COUNT } from "@/graphql";
 
 // export const metadata: Metadata = {
 //   title: "Users",
@@ -14,7 +14,12 @@ import { ADMIN_USER } from "@/graphql";
 // Simulate a database read for tasks.
 
 export default function TaskPage() {
+  const [pagination, setPagination] = useState({
+    pageSize: 10,
+    pageIndex: 0,
+  });
   const [tasks, settasks] = useState<any>([]);
+  const [usersCount, setUsersCount] = useState<number>(null);
 
   const countries = [];
 
@@ -27,9 +32,20 @@ export default function TaskPage() {
       console.log(error, "data");
     },
     variables: {
-      limit: 20,
-      page: 0,
+      limit: pagination.pageSize,
+      page: pagination.pageIndex,
     },
+  });
+
+  const _ = useQuery(ADMIN_USER_COUNT, {
+    onCompleted(data) {
+      // alert(data?.AdminGetUsers);
+      setUsersCount(Math.round(data?.AdminGetUsersCount?.count / pagination.pageSize));
+    },
+    onError(error) {
+      console.log(error, "data");
+    },
+    variables: {}
   });
 
   useEffect(() => {
@@ -61,7 +77,7 @@ export default function TaskPage() {
   return (
     <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
       <div>{countries && countries.length}dd</div>
-      {tasks && <DataTable data={tasks} columns={columns} />}
+      {tasks && <DataTable data={tasks} columns={columns} pagination={pagination} onPaginationChange={setPagination} pageCount={usersCount}/>}
     </div>
   );
 }

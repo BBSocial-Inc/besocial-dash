@@ -31,11 +31,17 @@ import { DataTableToolbar } from "../components/data-table-toolbar";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  pagination: any,
+  onPaginationChange: any,
+  pageCount: any
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  pagination,
+  onPaginationChange,
+  pageCount
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -53,7 +59,11 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       columnFilters,
+      pagination
     },
+    manualPagination: true,
+    onPaginationChange,
+    pageCount: pageCount,
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
