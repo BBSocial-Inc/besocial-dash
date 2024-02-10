@@ -1231,16 +1231,19 @@ export const ADMIN_CONTENTS = gql`
 `;
 
 export const ADMIN_REFERS = gql`
-  query GetReferredUsers {
-    GetReferredUsers {
-      _id
-      referrer {
+  query GetReferredUsers($limit: Int, $page: Int, $search: String) {
+    GetReferredUsers(limit: $limit, page: $page, search: $search) {
+      totalRows
+      users {
         _id
+        referrer {
+          _id
+          name
+          username
+        }
         name
         username
       }
-      name
-      username
     }
   }
 `;

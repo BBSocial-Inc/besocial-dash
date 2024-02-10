@@ -21,25 +21,35 @@ import { ADMIN_REFERS } from "@/graphql";
 // Simulate a database read for tasks.
 
 export default function TaskPage() {
+  const [filter, setFilter] = useState("");
+  const [pagination, setPagination] = useState({
+    pageSize: 10,
+    pageIndex: 0,
+  });
+  const [pageCount, setPageCount] = useState<number>(null);
   const [refers, setrefers] = useState<any>([]);
 
-  const trendingU = useQuery(ADMIN_REFERS, {
+  const { loading, error, data } = useQuery(ADMIN_REFERS, {
     onCompleted(data) {
-      setrefers(data?.GetReferredUsers);
+      setrefers(data?.GetReferredUsers?.users);
+      let pageCount = Math.ceil(data?.GetReferredUsers?.totalRows / pagination.pageSize);
+      pageCount = pageCount == 0 ? 1 : pageCount;
+      setPageCount(pageCount);
     },
     onError(error) {
       console.log(error, "data");
     },
     variables: {
-      limit: 20,
-      page: 0,
+      limit: pagination.pageSize,
+      page: pagination.pageIndex,
+      search: filter
     },
   });
 
   return (
     <>
       <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-        <DataTable data={refers} columns={columns} />
+        <DataTable data={refers} columns={columns}  pagination={pagination} onPaginationChange={setPagination} pageCount={pageCount} filter={filter} onGlobalFilterChange={setFilter} loading={loading}/>
       </div>
     </>
   );
