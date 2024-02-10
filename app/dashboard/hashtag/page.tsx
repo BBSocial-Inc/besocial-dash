@@ -23,6 +23,7 @@ export default function TaskPage() {
   });
   const [pageCount, setPageCount] = useState<number>(100);
   const [hashtag, sethashtag] = useState<any>([]);
+  const [totalHashtags, setTotalHashtags] = useState<any>(0);
 
   const { loading, error, data } = useQuery(GET_HASHTAGS, {
     onCompleted(data) {
@@ -41,6 +42,16 @@ export default function TaskPage() {
     },
   });
 
+  const _ = useQuery(GET_HASHTAGS, {
+    onCompleted(data) {
+      setTotalHashtags(data?.AdminGetAllHashtags?.total)
+    },
+    onError(error) {
+      console.log(error, "data");
+    },
+    variables: {},
+  });
+
   return (
     <>
       <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
@@ -52,7 +63,7 @@ export default function TaskPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{hashtag?.total}</div>
+              <div className="text-2xl font-bold">{totalHashtags}</div>
               <p className="text-xs text-muted-foreground">All time</p>
             </CardContent>
           </Card>
