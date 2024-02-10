@@ -126,20 +126,23 @@ export const GET_HASHTAGS = gql`
   }
 `;
 export const GET_REPORTS = gql`
-  query ListReport($limit: Int, $page: Int) {
-    ListReport(limit: $limit, page: $page) {
-      _id
-      is_read
-      message
-      report_type
-      reported_by {
+  query ListReport($limit: Int, $page: Int, $search: String) {
+    ListReport(limit: $limit, page: $page, search: $search) {
+      totalRows,
+      reports {
         _id
-        name
-        username
+        is_read
+        message
+        report_type
+        reported_by {
+          _id
+          name
+          username
+        }
+        report_id
+        action
+        action_at
       }
-      report_id
-      action
-      action_at
     }
   }
 `;

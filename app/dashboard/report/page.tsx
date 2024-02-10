@@ -21,26 +21,36 @@ import { useQuery } from "@apollo/client";
 // Simulate a database read for tasks.
 
 export default function TaskPage() {
+  const [filter, setFilter] = useState("");
+  const [pagination, setPagination] = useState({
+    pageSize: 10,
+    pageIndex: 0,
+  });
+  const [usersCount, setUsersCount] = useState<number>(null);
   const [reports, setreports] = useState<any>([]);
 
-  const trendingU = useQuery(GET_REPORTS, {
+  const { loading, error, data } = useQuery(GET_REPORTS, {
     onCompleted(data) {
-      setreports(data?.ListReport);
+      setreports(data?.ListReport?.reports);
+      let pageCount = Math.ceil(data?.ListReport?.totalRows / pagination.pageSize);
+      pageCount = pageCount == 0 ? 1 : pageCount;
+      setUsersCount(pageCount);
       console.log(data.ListReport);
     },
     onError(error) {
       console.log(error, "data");
     },
     variables: {
-      limit: 20,
-      page: 0,
+      limit: pagination.pageSize,
+      page: pagination.pageIndex,
+      search: filter
     },
   });
 
   return (
     <>
       <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-        <DataTable data={reports} columns={columns} />
+        <DataTable data={reports} columns={columns}  pagination={pagination} onPaginationChange={setPagination} pageCount={usersCount} filter={filter} onGlobalFilterChange={setFilter} loading={loading}/>
       </div>
     </>
   );

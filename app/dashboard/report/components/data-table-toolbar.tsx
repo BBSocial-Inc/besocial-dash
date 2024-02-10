@@ -12,10 +12,14 @@ import { DataTableViewOptions } from "./data-table-view-options";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  globalFilter: any;
+  onGlobalFilterChange: any;
 }
 
 export function DataTableToolbar<TData>({
   table,
+  globalFilter,
+  onGlobalFilterChange
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
@@ -24,9 +28,9 @@ export function DataTableToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="search report..."
-          value={(table.getColumn("message")?.getFilterValue() as string) ?? ""}
+          value={globalFilter}
           onChange={(event) =>
-            table.getColumn("message")?.setFilterValue(event.target.value)
+            onGlobalFilterChange(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
