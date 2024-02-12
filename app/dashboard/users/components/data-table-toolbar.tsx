@@ -9,6 +9,7 @@ import { authType, deviceType, priorities, statuses } from "../data/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { DataTableViewOptions } from "./data-table-view-options";
 import { useSearchParams } from "next/navigation";
+import DebouncedInput from "@/components/DebouncedInput";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -35,7 +36,7 @@ export function DataTableToolbar<TData>({
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        <Input
+        <DebouncedInput
           placeholder="search users..."
           value={
             // (table.getColumn("name")?.getFilterValue() as string) ?? ""
@@ -43,7 +44,7 @@ export function DataTableToolbar<TData>({
           }
           onChange={(event) =>{
             // table.getColumn("name")?.setFilterValue(event.target.value)
-            onGlobalFilterChange(event.target.value)
+            onGlobalFilterChange(event)
           }}
           className="h-8 w-[150px] lg:w-[250px]"
         />
