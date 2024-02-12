@@ -13,10 +13,14 @@ import { useSearchParams } from "next/navigation";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  globalFilter: any;
+  onGlobalFilterChange: any;
 }
 
 export function DataTableToolbar<TData>({
   table,
+  globalFilter,
+  onGlobalFilterChange
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
@@ -34,11 +38,8 @@ export function DataTableToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="search content by username..."
-          value={
-            (table.getColumn("username")?.getFilterValue() as string) ?? ""
-          }
           onChange={(event) =>
-            table.getColumn("username")?.setFilterValue(event.target.value)
+            onGlobalFilterChange(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />

@@ -1205,8 +1205,9 @@ export const ADMIN_CONTENTS = gql`
     $page: Int
     $from: DateTime
     $to: DateTime
+    $search: String
   ) {
-    AdminGetAllContents(limit: $limit, page: $page, from: $from, to: $to) {
+    AdminGetAllContents(limit: $limit, page: $page, from: $from, to: $to, search: $search) {
       total
       data {
         _id
