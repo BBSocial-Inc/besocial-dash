@@ -24,22 +24,46 @@ import { Button } from "@/components/ui/button";
 // Simulate a database read for tasks.
 
 export default function TaskPage() {
+  const [filter, setFilter] = useState("");
+  const [pagination, setPagination] = useState({
+    pageSize: 10,
+    pageIndex: 0,
+  });
+  const [pageCount, setPageCount] = useState<number>(null);
   const [contents, setcontents] = useState<any>({});
   const [date, setdate] = useState<any>();
+  const [totalContents, setTotalContents] = useState<any>();
 
-  const trendingU = useQuery(ADMIN_CONTENTS, {
+  const { loading, error, data } = useQuery(ADMIN_CONTENTS, {
     onCompleted(data) {
       if (data?.AdminGetAllContents) {
         setcontents(data?.AdminGetAllContents);
+
+        let pageCount = Math.ceil(data?.AdminGetAllContents?.total / pagination.pageSize);
+        pageCount = pageCount == 0 ? 1 : pageCount;
+        setPageCount(pageCount);
       }
     },
     onError(error) {
       console.log(error, "data");
     },
     variables: {
-      limit: 10,
-      page: 0,
+      limit: pagination.pageSize,
+      page: pagination.pageIndex,
+      search: filter
     },
+  });
+
+  const _ = useQuery(ADMIN_CONTENTS, {
+    onCompleted(data) {
+      if (data?.AdminGetAllContents) {
+        setTotalContents(data?.AdminGetAllContents?.total);
+      }
+    },
+    onError(error) {
+      console.log(error, "data");
+    },
+    variables: {},
   });
 
   const [trendingUx, q] = useLazyQuery(ADMIN_CONTENTS, {
@@ -52,8 +76,9 @@ export default function TaskPage() {
       console.log(error, "data");
     },
     variables: {
-      limit: 100,
-      page: 0,
+      limit: pagination.pageSize,
+      page: pagination.pageIndex,
+      search: filter
     },
   });
 
@@ -68,7 +93,7 @@ export default function TaskPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{contents?.total}</div>
+              <div className="text-2xl font-bold">{totalContents}</div>
               <p className="text-xs text-muted-foreground">All time</p>
             </CardContent>
           </Card>
@@ -100,7 +125,7 @@ export default function TaskPage() {
           </Button>
         </div>
         {contents?.data ? (
-          <DataTable data={contents?.data} columns={columns} />
+          <DataTable data={contents?.data} columns={columns}  pagination={pagination} onPaginationChange={setPagination} pageCount={pageCount} filter={filter} onGlobalFilterChange={setFilter} loading={loading}/>
         ) : (
           <></>
         )}

@@ -27,15 +27,28 @@ import {
 
 import { DataTablePagination } from "../components/data-table-pagination";
 import { DataTableToolbar } from "../components/data-table-toolbar";
+import { Icons } from "@/components/icons";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  pagination: any,
+  onPaginationChange: any,
+  pageCount: any,
+  onGlobalFilterChange: any,
+  filter: any,
+  loading: any 
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  pagination,
+  onPaginationChange,
+  pageCount,
+  onGlobalFilterChange,
+  filter,
+  loading
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -44,6 +57,10 @@ export function DataTable<TData, TValue>({
     []
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  
+  React.useEffect(() => {
+    table.setPageIndex(() => 0)
+  }, [filter]);
 
   const table = useReactTable({
     data,
@@ -53,7 +70,14 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       columnFilters,
+      pagination,
+      globalFilter: filter
     },
+    manualFiltering: true,
+    onGlobalFilterChange: onGlobalFilterChange,
+    manualPagination: true,
+    onPaginationChange,
+    pageCount: pageCount,
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
@@ -69,7 +93,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} globalFilter={filter} onGlobalFilterChange={onGlobalFilterChange}/>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -91,7 +115,7 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {!loading ? (table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -116,7 +140,21 @@ export function DataTable<TData, TValue>({
                   No results.
                 </TableCell>
               </TableRow>
-            )}
+            ))
+            :
+            (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                <div className="flex justify-center items-center">
+                  <Icons.spinner className="h-4 w-4 animate-spin" />
+                </div>
+                </TableCell>
+              </TableRow>
+            )
+          }
           </TableBody>
         </Table>
       </div>

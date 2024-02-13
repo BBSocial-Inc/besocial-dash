@@ -14,6 +14,7 @@ import { ADMIN_USER, ADMIN_USER_COUNT } from "@/graphql";
 // Simulate a database read for tasks.
 
 export default function TaskPage() {
+  const [filter, setFilter] = useState("");
   const [pagination, setPagination] = useState({
     pageSize: 10,
     pageIndex: 0,
@@ -23,10 +24,14 @@ export default function TaskPage() {
 
   const countries = [];
 
-  const trendingU = useQuery(ADMIN_USER, {
+  const { loading, error, data } = useQuery(ADMIN_USER, {
     onCompleted(data) {
       // alert(data?.AdminGetUsers);
-      settasks(data?.AdminGetUsers);
+      settasks(data?.AdminGetUsers.users);
+
+      let pageCount = Math.ceil(data?.AdminGetUsers?.count / pagination.pageSize);
+      pageCount = pageCount == 0 ? 1 : pageCount;
+      setUsersCount(pageCount);
     },
     onError(error) {
       console.log(error, "data");
@@ -34,23 +39,11 @@ export default function TaskPage() {
     variables: {
       limit: pagination.pageSize,
       page: pagination.pageIndex,
+      search: filter
     },
-  });
-
-  const _ = useQuery(ADMIN_USER_COUNT, {
-    onCompleted(data) {
-      // alert(data?.AdminGetUsers);
-      setUsersCount(Math.round(data?.AdminGetUsersCount?.count / pagination.pageSize));
-    },
-    onError(error) {
-      console.log(error, "data");
-    },
-    variables: {}
   });
 
   useEffect(() => {
-    console.log(tasks);
-
     tasks?.map((x) => {
       if (x.country) {
         countries.push(x.country);
@@ -77,7 +70,7 @@ export default function TaskPage() {
   return (
     <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
       <div>{countries && countries.length}dd</div>
-      {tasks && <DataTable data={tasks} columns={columns} pagination={pagination} onPaginationChange={setPagination} pageCount={usersCount}/>}
+      {tasks && <DataTable data={tasks} columns={columns} pagination={pagination} onPaginationChange={setPagination} pageCount={usersCount} filter={filter} onGlobalFilterChange={setFilter} loading={loading}/>}
     </div>
   );
 }

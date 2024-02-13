@@ -102,8 +102,8 @@ export const GET_CONTENT_CAPTION = gql`
   }
 `;
 export const GET_HASHTAGS = gql`
-  query AdminGetAllHashtags($limit: Int, $page: Int) {
-    AdminGetAllHashtags(limit: $limit, page: $page) {
+  query AdminGetAllHashtags($limit: Int, $page: Int, $search: String) {
+    AdminGetAllHashtags(limit: $limit, page: $page, search: $search) {
       data {
         _id
         contentViews
@@ -126,20 +126,23 @@ export const GET_HASHTAGS = gql`
   }
 `;
 export const GET_REPORTS = gql`
-  query ListReport($limit: Int, $page: Int) {
-    ListReport(limit: $limit, page: $page) {
-      _id
-      is_read
-      message
-      report_type
-      reported_by {
+  query ListReport($limit: Int, $page: Int, $search: String) {
+    ListReport(limit: $limit, page: $page, search: $search) {
+      totalRows,
+      reports {
         _id
-        name
-        username
+        is_read
+        message
+        report_type
+        reported_by {
+          _id
+          name
+          username
+        }
+        report_id
+        action
+        action_at
       }
-      report_id
-      action
-      action_at
     }
   }
 `;
@@ -1154,21 +1157,24 @@ export const GET_USER_TO_TAG = gql`
 export const ADMIN_USER = gql`
   query AdminGetUsers($limit: Int, $page: Int, $search: String) {
     AdminGetUsers(limit: $limit, page: $page, search: $search) {
-      _id
-      name
-      username
-      email_admin
-      birthday_admin
-      auth_type_admin
-      created_at
-      country
-      platform
-      numberOfContents
-      numberOfHashtags
-      viewsCount
-      referredUsersCount
-      is_blocked
-      bs_pin
+      count
+      users{
+        _id
+        name
+        username
+        email_admin
+        birthday_admin
+        auth_type_admin
+        created_at
+        country
+        platform
+        numberOfContents
+        numberOfHashtags
+        viewsCount
+        referredUsersCount
+        is_blocked
+        bs_pin
+      }
     }
   }
 `;
@@ -1199,8 +1205,9 @@ export const ADMIN_CONTENTS = gql`
     $page: Int
     $from: DateTime
     $to: DateTime
+    $search: String
   ) {
-    AdminGetAllContents(limit: $limit, page: $page, from: $from, to: $to) {
+    AdminGetAllContents(limit: $limit, page: $page, from: $from, to: $to, search: $search) {
       total
       data {
         _id
@@ -1225,16 +1232,19 @@ export const ADMIN_CONTENTS = gql`
 `;
 
 export const ADMIN_REFERS = gql`
-  query GetReferredUsers {
-    GetReferredUsers {
-      _id
-      referrer {
+  query GetReferredUsers($limit: Int, $page: Int, $search: String) {
+    GetReferredUsers(limit: $limit, page: $page, search: $search) {
+      totalRows
+      users {
         _id
+        referrer {
+          _id
+          name
+          username
+        }
         name
         username
       }
-      name
-      username
     }
   }
 `;
