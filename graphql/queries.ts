@@ -128,7 +128,7 @@ export const GET_HASHTAGS = gql`
 export const GET_REPORTS = gql`
   query ListReport($limit: Int, $page: Int, $search: String) {
     ListReport(limit: $limit, page: $page, search: $search) {
-      totalRows,
+      totalRows
       reports {
         _id
         is_read
@@ -1158,7 +1158,7 @@ export const ADMIN_USER = gql`
   query AdminGetUsers($limit: Int, $page: Int, $search: String) {
     AdminGetUsers(limit: $limit, page: $page, search: $search) {
       count
-      users{
+      users {
         _id
         name
         username
@@ -1207,7 +1207,13 @@ export const ADMIN_CONTENTS = gql`
     $to: DateTime
     $search: String
   ) {
-    AdminGetAllContents(limit: $limit, page: $page, from: $from, to: $to, search: $search) {
+    AdminGetAllContents(
+      limit: $limit
+      page: $page
+      from: $from
+      to: $to
+      search: $search
+    ) {
       total
       data {
         _id
@@ -1226,6 +1232,7 @@ export const ADMIN_CONTENTS = gql`
         }
         thumbnail_url
         created_at
+        new_content_url
       }
     }
   }

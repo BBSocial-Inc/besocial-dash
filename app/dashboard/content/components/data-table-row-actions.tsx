@@ -98,10 +98,11 @@ export function DataTableRowActions<TData>({
 
           <DropdownMenuItem
             onClick={() => {
-              window.open(data?.content_url, "_blank");
+              console.log(data);
+              window.open(data?.new_content_url, "_blank");
             }}
           >
-            View Content
+            Download Content
           </DropdownMenuItem>
 
           {/* <DropdownMenuItem>Send notification</DropdownMenuItem> */}
