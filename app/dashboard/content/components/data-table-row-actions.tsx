@@ -98,7 +98,6 @@ export function DataTableRowActions<TData>({
 
           <DropdownMenuItem
             onClick={() => {
-              console.log(data);
               window.open(data?.new_content_url, "_blank");
             }}
           >
