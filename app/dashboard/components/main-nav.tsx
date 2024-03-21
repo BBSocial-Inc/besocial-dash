@@ -82,6 +82,16 @@ export function MainNav({
       >
         Report
       </Link>
+      <Link
+        href="/dashboard/notification"
+        className={`text-sm transition-colors hover:text-primary ${
+          path.includes("/dashboard/notification")
+            ? "font-bold"
+            : "text-muted-foreground"
+        }`}
+      >
+        Notification
+      </Link>
     </nav>
   );
 }
