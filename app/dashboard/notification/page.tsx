@@ -19,7 +19,6 @@ export default function TaskPage() {
 
   const handleNotificationTypeChange = (value) => {
     setNotificationType(value);
-    // You can perform additional actions here based on the selected value if needed
   };
 
   const handleSendNotifications = (e) => {
