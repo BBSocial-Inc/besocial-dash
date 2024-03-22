@@ -3,7 +3,8 @@
 import * as React from "react";
 
 import { useEffect, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { ADMIN_SEND_NOTIFICATIONS } from "@/graphql/mutations";
 import { ADMIN_USER, ADMIN_USER_COUNT } from "@/graphql";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -22,16 +23,62 @@ export default function TaskPage() {
   const [contentUrl, setContentUrl] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
-
   const [notificationType, setNotificationType] = useState("marketing");
 
   const handleNotificationTypeChange = (value) => {
     setNotificationType(value);
   };
 
-  const handleSendNotifications = (e) => {
+  const [AdminSendNotifications] = useMutation(ADMIN_SEND_NOTIFICATIONS, {
+    async onCompleted(data) {
+      if (data?.AdminSendNotifications) {
+        // //
+        // await localStorage.setItem(
+        //   GlobalVars.ACCES_TOKEN,
+        //   data?.ValidateEmailVerifyOTP.auth_token
+        // );
+
+        // await localStorage.setItem(
+        //   GlobalVars.USER_PROFILE,
+        //   JSON.stringify(data?.ValidateEmailVerifyOTP)
+        // );
+
+        // setToken(data?.ValidateEmailVerifyOTP.auth_token);
+        // setUser(data?.ValidateEmailVerifyOTP);
+
+        // router.push("/dashboard");
+      }
+    },
+    onError(error) {
+      console.log(error);
+      // setIsLoading(false);
+      // toast({
+      //   title: "Authentication Failed",
+      //   variant: "destructive",
+      //   description:
+      //     "Something went wrong while logging in. Check your credentials and try again",
+      // });
+    },
+  });
+
+  const handleSendNotifications = async (e) => {
     e.preventDefault();
-  }
+    try {
+      const { data } = await AdminSendNotifications({
+        variables: {
+          notificationType: notificationType,
+          title: title,
+          body: body,
+          content: contentUrl,
+        },
+      });
+      console.log(data);
+      // Handle success here
+    } catch (error) {
+      console.error("Error sending notifications:", error);
+      // Handle error here
+    }
+  };
 
   return (
     <div className="flex flex-col items-center space-y-8 p-8">

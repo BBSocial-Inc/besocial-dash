@@ -599,3 +599,23 @@ export const EDIT_CONTENT = gql`
     }
   }
 `;
+
+export const ADMIN_SEND_NOTIFICATIONS = gql`
+  mutation AdminSendNotifications(
+    $notificationType: String!
+    $title: String!
+    $body: String
+    $content: String
+  ) {
+    AdminSendNotifications(
+      notificationType: $notificationType
+      title: $title
+      body: $body
+      content: $content
+    ) {
+      status
+      message
+      json
+    }
+  }
+`;
