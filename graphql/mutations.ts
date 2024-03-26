@@ -606,12 +606,24 @@ export const ADMIN_SEND_NOTIFICATIONS = gql`
     $title: String!
     $body: String
     $content: String
+    $username: String
+    $cfa_title: String
+    $cfa_body: String
+    $cfa_image_url: String
+    $cfa_button_text: String
+    $cfa_button_link: String
   ) {
     AdminSendNotifications(
       notificationType: $notificationType
       title: $title
       body: $body
       content: $content
+      username: $username
+      cfa_title: $cfa_title
+      cfa_body: $cfa_body
+      cfa_image_url: $cfa_image_url
+      cfa_button_text: $cfa_button_text
+      cfa_button_link: $cfa_button_link
     ) {
       status
       message

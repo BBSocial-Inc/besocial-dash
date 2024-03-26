@@ -89,9 +89,15 @@ export default function TaskPage() {
       const { data } = await AdminSendNotifications({
         variables: {
           notificationType: notificationType,
+          username: username,
           title: title,
           body: body,
           content: contentUrl,
+          cfaTitle: cfaTitle,
+          cfaBody: cfaBody,
+          cfaButtonLink: cfaButtonLink,
+          cfaButtonText: cfaButtonText,
+          cfaImageUrl: "https://d1hlxlbzpuru7t.cloudfront.net/uploads/6576c13cfe059667cc627410/BbH8pLXkY-content_thumbnail.png",
         },
       });
       console.log(data);
