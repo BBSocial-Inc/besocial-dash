@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -30,6 +31,8 @@ export default function TaskPage() {
   const [cfaButtonLink, setCfaButtonLink] = React.useState("");
   const [cfaButtonText, setCfaButtonText] = React.useState("");
   const [notificationType, setNotificationType] = useState("marketing");
+
+  const [sendToSingleUser, setSendToSingleUser] = useState(false);
 
   const handleNotificationTypeChange = (value) => {
     setNotificationType(value);
@@ -125,7 +128,26 @@ export default function TaskPage() {
               </SelectContent>
             </Select>
           </div>
+          <div className="flex items-center space-x-2 mt-4">
+            <p className="text-sm font-medium">Send to single user</p>
+            <Checkbox
+              checked={sendToSingleUser}
+              onClick={(e) => setSendToSingleUser(!sendToSingleUser)}
+            />
+          </div>
           <div>
+            {sendToSingleUser && (
+              <Input
+                id="username-input"
+                placeholder="Username..."
+                type="text"
+                autoCapitalize="none"
+                autoCorrect="off"
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+                className="mt-4"
+              />
+            )}
             <Input
               id="title"
               placeholder="Title..."
