@@ -23,6 +23,12 @@ export default function TaskPage() {
   const [contentUrl, setContentUrl] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
+  const [username, setUsername] = React.useState("");
+  const [cfaTitle, setCfaTitle] = React.useState("");
+  const [cfaBody, setCfaBody] = React.useState("");
+  const [cfaImage, setCfaImage] = useState(null);
+  const [cfaButtonLink, setCfaButtonLink] = React.useState("");
+  const [cfaButtonText, setCfaButtonText] = React.useState("");
   const [notificationType, setNotificationType] = useState("marketing");
 
   const handleNotificationTypeChange = (value) => {
@@ -61,6 +67,19 @@ export default function TaskPage() {
     },
   });
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setCfaImage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSendNotifications = async (e) => {
     e.preventDefault();
     try {
@@ -98,7 +117,7 @@ export default function TaskPage() {
                 <SelectValue placeholder="Select notification type" />
               </SelectTrigger>
               <SelectContent side="top">
-                {['marketing', 'content'].map((notificationType) => (
+                {['marketing', 'content', 'call for action'].map((notificationType) => (
                   <SelectItem key={notificationType} value={notificationType}>
                     {notificationType.charAt(0).toUpperCase() + notificationType.slice(1)}
                   </SelectItem>
@@ -138,6 +157,53 @@ export default function TaskPage() {
                 value={contentUrl}
                 className="mt-4"
               />
+            )}
+            {notificationType === "call for action" && (
+              <>
+                <Input
+                  id="cfa-title"
+                  placeholder="CFA Title..."
+                  type="text"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  onChange={(e) => setCfaTitle(e.target.value)}
+                  value={cfaTitle}
+                  className="mt-4"
+                />
+                <Textarea
+                  placeholder="CFA Body..."
+                  className="mt-4"
+                  onChange={(e) => setCfaBody(e.target.value)}
+                  value={cfaBody}
+                />
+                <Input
+                  id="cfa-image-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="mt-4"
+                />
+                <Input
+                  id="cfa-button-text"
+                  placeholder="CFA Button Text..."
+                  type="text"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  onChange={(e) => setCfaButtonText(e.target.value)}
+                  value={cfaButtonText}
+                  className="mt-4"
+                />
+                <Input
+                  id="cfa-button-link"
+                  placeholder="CFA Button Link..."
+                  type="text"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  onChange={(e) => setCfaButtonLink(e.target.value)}
+                  value={cfaButtonLink}
+                  className="mt-4"
+                />
+              </>
             )}
             <div className="mt-4 flex justify-end">
               <Button onClick={handleSendNotifications}>
