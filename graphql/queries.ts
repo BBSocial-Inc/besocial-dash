@@ -1141,6 +1141,20 @@ export const GET_PRESIGNED_URL = gql`
   }
 `;
 
+export const GET_CUSTOM_PRESIGNED_URL = gql`
+  query GetCustomS3PreSignedUrls($fileNames: [String!]) {
+    GetCustomS3PreSignedUrls(fileNames: $fileNames) {
+      urls {
+        file
+        key
+        put
+        get
+        delete
+      }
+    }
+  }
+`;
+
 export const GET_USER_TO_TAG = gql`
   query GetSearchSuggestions($search: String) {
     GetSearchSuggestions(search: $search) {

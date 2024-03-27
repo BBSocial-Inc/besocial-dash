@@ -3,12 +3,13 @@
 import * as React from "react";
 
 import { useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { ADMIN_SEND_NOTIFICATIONS } from "@/graphql/mutations";
-import { ADMIN_USER, ADMIN_USER_COUNT } from "@/graphql";
+import { GET_CUSTOM_PRESIGNED_URL } from "@/graphql";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import axiosInstance from "@/lib/axios";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -70,22 +71,44 @@ export default function TaskPage() {
     },
   });
 
+  const [GetCustomPresignedUrl, { loading, error, data }] = useLazyQuery(GET_CUSTOM_PRESIGNED_URL);
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      setCfaImage(reader.result);
+      // Set the object containing file data into state
+      setCfaImage({
+        name: file.name,
+        content: new Blob([reader.result])
+      });
     };
 
     if (file) {
-      reader.readAsDataURL(file);
+      reader.readAsArrayBuffer(file);
     }
   };
 
   const handleSendNotifications = async (e) => {
     e.preventDefault();
     try {
+      let imageUrl = null;
+      
+      // Upload the image to s3 if it is added by the user
+      if (cfaImage) {
+        const presignUrls = await GetCustomPresignedUrl({
+          variables: {
+            fileNames: [`admin-notifications-images/${cfaImage.name}`]
+          },
+        });
+
+        const { get, put } = presignUrls.data.GetCustomS3PreSignedUrls.urls[0];
+
+        imageUrl = get;
+        const response = await axiosInstance.put(put, cfaImage.content, {});
+      }
+
       const { data } = await AdminSendNotifications({
         variables: {
           notificationType: notificationType,
@@ -97,11 +120,10 @@ export default function TaskPage() {
           cfaBody: cfaBody,
           cfaButtonLink: cfaButtonLink,
           cfaButtonText: cfaButtonText,
-          cfaImageUrl: "https://d1hlxlbzpuru7t.cloudfront.net/uploads/6576c13cfe059667cc627410/BbH8pLXkY-content_thumbnail.png",
+          cfaImageUrl: imageUrl,
         },
       });
       console.log(data);
-      // Handle success here
     } catch (error) {
       console.error("Error sending notifications:", error);
       // Handle error here
