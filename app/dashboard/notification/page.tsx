@@ -8,6 +8,7 @@ import { ADMIN_SEND_NOTIFICATIONS } from "@/graphql/mutations";
 import { GET_CUSTOM_PRESIGNED_URL } from "@/graphql";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import axiosInstance from "@/lib/axios";
 import { Icons } from "@/components/icons";
@@ -23,6 +24,8 @@ import {
 } from "@/components/ui/card";
 
 export default function TaskPage() {
+  const { toast } = useToast();
+
   const [contentUrl, setContentUrl] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
@@ -41,39 +44,9 @@ export default function TaskPage() {
     setNotificationType(value);
   };
 
-  const [AdminSendNotifications] = useMutation(ADMIN_SEND_NOTIFICATIONS, {
-    async onCompleted(data) {
-      if (data?.AdminSendNotifications) {
-        // //
-        // await localStorage.setItem(
-        //   GlobalVars.ACCES_TOKEN,
-        //   data?.ValidateEmailVerifyOTP.auth_token
-        // );
+  const [AdminSendNotifications] = useMutation(ADMIN_SEND_NOTIFICATIONS);
 
-        // await localStorage.setItem(
-        //   GlobalVars.USER_PROFILE,
-        //   JSON.stringify(data?.ValidateEmailVerifyOTP)
-        // );
-
-        // setToken(data?.ValidateEmailVerifyOTP.auth_token);
-        // setUser(data?.ValidateEmailVerifyOTP);
-
-        // router.push("/dashboard");
-      }
-    },
-    onError(error) {
-      console.log(error);
-      // setIsLoading(false);
-      // toast({
-      //   title: "Authentication Failed",
-      //   variant: "destructive",
-      //   description:
-      //     "Something went wrong while logging in. Check your credentials and try again",
-      // });
-    },
-  });
-
-  const [GetCustomPresignedUrl, { loading, error, data }] = useLazyQuery(GET_CUSTOM_PRESIGNED_URL);
+  const [GetCustomPresignedUrl] = useLazyQuery(GET_CUSTOM_PRESIGNED_URL);
 
   const handleSingleUserCheckboxToggle = (e) => {
     setSendToSingleUser(!sendToSingleUser);
@@ -131,8 +104,19 @@ export default function TaskPage() {
           cfaImageUrl: imageUrl,
         },
       });
+
+      toast({
+        title: "Success",
+        variant: "default",
+        description: "Notification Sent Successfully",
+      });
     } catch (error) {
       console.error("Error sending notifications:", error);
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: error.message,
+      });
     } finally {
       setIsLoading(false);
     }
