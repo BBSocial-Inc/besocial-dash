@@ -602,20 +602,32 @@ export const EDIT_CONTENT = gql`
 
 export const ADMIN_SEND_NOTIFICATIONS = gql`
   mutation AdminSendNotifications(
-    $notificationType: String!
-    $title: String!
-    $body: String
+    $notificationType: String!, 
+    $title: String!, 
+    $body: String, 
+    $cfaTitle: String, 
+    $cfaBody: String, 
+    $cfaButtonLink: String, 
+    $cfaButtonText: String, 
+    $cfaImageUrl: String, 
+    $username: String, 
     $content: String
   ) {
     AdminSendNotifications(
-      notificationType: $notificationType
-      title: $title
-      body: $body
+      notificationType: $notificationType, 
+      title: $title, 
+      body: $body, 
+      cfa_title: $cfaTitle, 
+      cfa_body: $cfaBody, 
+      cfa_button_link: $cfaButtonLink, 
+      cfa_button_text: $cfaButtonText, 
+      cfa_image_url: $cfaImageUrl, 
+      username: $username, 
       content: $content
-    ) {
-      status
-      message
-      json
+      ) {
+        status
+        message
+        json
     }
   }
 `;
