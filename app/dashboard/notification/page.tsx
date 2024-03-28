@@ -142,7 +142,7 @@ export default function TaskPage() {
     <div className="flex flex-col items-center space-y-8 p-8">
       <Card className="w-full md:max-w-lg">
         <CardHeader>
-          <CardTitle>Send Bulk Notifications</CardTitle>
+          <CardTitle>Create Notification</CardTitle>
         </CardHeader>
         <CardContent>
           {/* For selecting the type of notification */}
@@ -268,7 +268,7 @@ export default function TaskPage() {
                 {isLoading && (
                   <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                 )}
-                Send Notifications
+                Send
               </Button>
             </div>
           </div>
