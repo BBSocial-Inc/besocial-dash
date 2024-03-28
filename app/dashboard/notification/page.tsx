@@ -73,6 +73,11 @@ export default function TaskPage() {
 
   const [GetCustomPresignedUrl, { loading, error, data }] = useLazyQuery(GET_CUSTOM_PRESIGNED_URL);
 
+  const handleSingleUserCheckboxToggle = (e) => {
+    setSendToSingleUser(!sendToSingleUser);
+    setUsername(''); // Clearing the username field
+  };
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -94,7 +99,7 @@ export default function TaskPage() {
     e.preventDefault();
     try {
       let imageUrl = null;
-      
+
       // Upload the image to s3 if it is added by the user
       if (cfaImage) {
         const presignUrls = await GetCustomPresignedUrl({
@@ -160,7 +165,7 @@ export default function TaskPage() {
             <p className="text-sm font-medium">Send to single user</p>
             <Checkbox
               checked={sendToSingleUser}
-              onClick={(e) => setSendToSingleUser(!sendToSingleUser)}
+              onClick={handleSingleUserCheckboxToggle}
             />
           </div>
           <div>
