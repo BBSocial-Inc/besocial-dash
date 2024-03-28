@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import axiosInstance from "@/lib/axios";
+import { Icons } from "@/components/icons";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -34,6 +35,7 @@ export default function TaskPage() {
   const [notificationType, setNotificationType] = useState("marketing");
 
   const [sendToSingleUser, setSendToSingleUser] = useState(false);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const handleNotificationTypeChange = (value) => {
     setNotificationType(value);
@@ -97,6 +99,7 @@ export default function TaskPage() {
 
   const handleSendNotifications = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       let imageUrl = null;
 
@@ -128,10 +131,10 @@ export default function TaskPage() {
           cfaImageUrl: imageUrl,
         },
       });
-      console.log(data);
     } catch (error) {
       console.error("Error sending notifications:", error);
-      // Handle error here
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -262,6 +265,9 @@ export default function TaskPage() {
             )}
             <div className="mt-4 flex justify-end">
               <Button onClick={handleSendNotifications}>
+                {isLoading && (
+                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Send Notifications
               </Button>
             </div>
