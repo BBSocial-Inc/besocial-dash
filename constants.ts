@@ -15,3 +15,9 @@ export enum GlobalVars {
   LOGOUT = "@notification",
   TEMP_USER = "@tempUser",
 }
+
+export enum NotificationType {
+  MARKETING = "marketing",
+  CONTENT = "content",
+  CALL_FOR_ACTION = "call_for_action"
+}

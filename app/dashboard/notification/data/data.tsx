@@ -1,3 +1,4 @@
+import { NotificationType } from "@/constants";
 import {
   ArrowDownIcon,
   ArrowRightIcon,
@@ -111,5 +112,20 @@ export const notification = [
     label: "High",
     value: "high",
     icon: ArrowUpIcon,
+  },
+];
+
+export const notificationTypes = [
+  {
+    value: NotificationType.MARKETING,
+    label: "Marketing",
+  },
+  {
+    value: NotificationType.CONTENT,
+    label: "Content",
+  },
+  {
+    value: NotificationType.CALL_FOR_ACTION,
+    label: "Call for action",
   },
 ];

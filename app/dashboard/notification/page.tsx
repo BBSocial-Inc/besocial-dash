@@ -22,6 +22,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { notificationTypes } from "./data/data";
+import { NotificationType } from "@/constants";
 
 export default function TaskPage() {
   const { toast } = useToast();
@@ -140,9 +142,9 @@ export default function TaskPage() {
                 <SelectValue placeholder="Select notification type" />
               </SelectTrigger>
               <SelectContent side="top">
-                {['marketing', 'content', 'call for action'].map((notificationType) => (
-                  <SelectItem key={notificationType} value={notificationType}>
-                    {notificationType.charAt(0).toUpperCase() + notificationType.slice(1)}
+                {notificationTypes.map((notificationType, index) => (
+                  <SelectItem key={index} value={notificationType.value}>
+                    {notificationType.label}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -188,7 +190,7 @@ export default function TaskPage() {
               value={body}
               className="mt-4"
             />
-            {notificationType === "content" && (
+            {notificationType === NotificationType.CONTENT && (
               <Input
                 id="content-url"
                 placeholder="Content URL..."
@@ -200,7 +202,7 @@ export default function TaskPage() {
                 className="mt-4"
               />
             )}
-            {notificationType === "call for action" && (
+            {notificationType === NotificationType.CALL_FOR_ACTION && (
               <>
                 <Input
                   id="cfa-title"
