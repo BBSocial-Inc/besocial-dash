@@ -1269,3 +1269,21 @@ export const ADMIN_REFERS = gql`
     }
   }
 `;
+
+export const ADMIN_GET_REFERRED_USERS = gql`
+query AdminGetReferredUsers($limit: Int, $page: Int) {
+  AdminGetReferredUsers(limit: $limit, page: $page) {
+    totalRows
+    users {
+      _id
+      referrer {
+        _id
+        name
+        username
+      }
+      name
+      username
+    }
+  }
+}
+`;
