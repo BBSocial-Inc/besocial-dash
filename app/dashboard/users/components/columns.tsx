@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
+import { Input } from "@/components/ui/input";
 import { DataTableRowActions } from "./data-table-row-actions";
 
 export const columns: ColumnDef<Task>[] = [
@@ -220,12 +221,27 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <a
+          {/* Replace the link with readyonly input */}
+          {/* <a
             href={"https://joinb.social/refer/" + row.getValue("bs_pin")}
             className="max-w-[500px] truncate font-medium text-[blue]"
           >
             Link
-          </a>
+          </a> */}
+
+          <Input
+            type="text"
+            value={"https://joinb.social/refer/" + row.getValue("bs_pin")}
+            className="cursor-pointer w-auto"
+            title="Copy"
+            readOnly={true}
+            onClick={(event) => {
+              event.preventDefault();
+              // Copy the referral link upon clicking
+              const pinValue = event.target.value;
+              navigator.clipboard.writeText(pinValue)
+            }}
+          />
         </div>
       );
     },
