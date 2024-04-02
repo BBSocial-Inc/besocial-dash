@@ -1271,8 +1271,8 @@ export const ADMIN_REFERS = gql`
 `;
 
 export const ADMIN_GET_REFERRED_USERS = gql`
-query AdminGetReferredUsers($limit: Int, $page: Int) {
-  AdminGetReferredUsers(limit: $limit, page: $page) {
+query AdminGetReferredUsers($limit: Int, $page: Int, $search: String) {
+  AdminGetReferredUsers(limit: $limit, page: $page, search: $search) {
     totalRows
     users {
       _id
