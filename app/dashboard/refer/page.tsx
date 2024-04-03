@@ -11,7 +11,7 @@ import { DataTable } from "./components/data-table";
 import { taskSchema } from "./data/schema";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { ADMIN_REFERS } from "@/graphql";
+import { ADMIN_GET_REFERRED_USERS } from "@/graphql";
 
 // export const metadata: Metadata = {
 //   title: "Creare",
@@ -28,11 +28,10 @@ export default function TaskPage() {
   });
   const [pageCount, setPageCount] = useState<number>(null);
   const [refers, setrefers] = useState<any>([]);
-
-  const { loading, error, data } = useQuery(ADMIN_REFERS, {
+  const { loading, error, data } = useQuery(ADMIN_GET_REFERRED_USERS, {
     onCompleted(data) {
-      setrefers(data?.GetReferredUsers?.users);
-      let pageCount = Math.ceil(data?.GetReferredUsers?.totalRows / pagination.pageSize);
+      setrefers(data?.AdminGetReferredUsers?.users);
+      let pageCount = Math.ceil(data?.AdminGetReferredUsers?.totalRows / pagination.pageSize);
       pageCount = pageCount == 0 ? 1 : pageCount;
       setPageCount(pageCount);
     },
