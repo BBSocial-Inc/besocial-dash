@@ -1283,6 +1283,7 @@ query AdminGetReferredUsers($limit: Int, $page: Int, $search: String) {
       }
       name
       username
+      country
     }
   }
 }
