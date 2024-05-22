@@ -12,10 +12,11 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { SIGNIN, VERIFY_OTP } from "@/graphql/mutation";
+import { VERIFY_OTP } from "@/graphql/mutation";
+import { SIGNIN } from "@/graphql/queries";
 import { GlobalVars } from "@/constants";
 
-interface SignInFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface SignInFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function SignInForm({ className, ...props }: SignInFormProps) {
   const { toast } = useToast();
@@ -29,6 +30,14 @@ export function SignInForm({ className, ...props }: SignInFormProps) {
   const [loginAdmin, { loading, error, data }] = useLazyQuery(SIGNIN, {
     onCompleted(data) {
       setshowCode(true);
+    },
+    onError(error) {
+      setIsLoading(false);
+      toast({
+        title: "Authentication Failed",
+        variant: "destructive",
+        description: error.message
+      });
     },
   });
 

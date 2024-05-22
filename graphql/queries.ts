@@ -54,9 +54,9 @@ export const SIGN_WITH_GOOGLE = gql`
   }
 `;
 
-export const LOGIN_WITH_EMAIL = gql`
-  query LoginUserWithEmail($email: String) {
-    LoginUserWithEmail(email: $email) {
+export const SIGNIN = gql`
+  query AdminLoginWithEmail($email: String) {
+    AdminLoginWithEmail(email: $email) {
       status
       message
       json
