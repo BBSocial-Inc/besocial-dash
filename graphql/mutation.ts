@@ -1,15 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const SIGNIN = gql`
-  query LoginUserWithEmail($email: String) {
-    LoginUserWithEmail(email: $email) {
-      status
-      message
-      json
-    }
-  }
-`;
-
 export const ADMIN_WARN = gql`
   mutation AdminGiveWarningStrike(
     $userId: String!
