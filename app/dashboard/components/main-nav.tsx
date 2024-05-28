@@ -92,6 +92,16 @@ export function MainNav({
       >
         Notification
       </Link>
+      <Link
+        href="/dashboard/withdraw-requests"
+        className={`text-sm transition-colors hover:text-primary ${
+          path.includes("/dashboard/withdraw-requests")
+            ? "font-bold"
+            : "text-muted-foreground"
+        }`}
+      >
+        Withdraw Requests
+      </Link>
     </nav>
   );
 }

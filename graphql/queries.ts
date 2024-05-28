@@ -1287,3 +1287,21 @@ query AdminGetReferredUsers($limit: Int, $page: Int, $search: String) {
   }
 }
 `;
+
+export const ADMIN_GET_WITHDRAW_REQUESTS = gql`
+query AdminGetWithdrawRequests($page: Int, $limit: Int) {
+  AdminGetWithdrawRequests(page: $page, limit: $limit) {
+    count
+    withdraw_requests {
+      _id
+      user {
+        username
+      }
+      payment_method
+      stars
+      status
+      account_details
+      created_at
+    }
+  }
+}`;

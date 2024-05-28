@@ -133,3 +133,12 @@ export const VERIFY_OTP = gql`
     }
   }
 `;
+
+export const CHANGE_WITHDRAW_REQUEST_STATUS = gql`
+mutation AdminUpdateWithdrawStatus($withdrawId: String, $status: String) {
+  AdminUpdateWithdrawStatus(withdraw_id: $withdrawId, status: $status) {
+    status
+    message
+    json
+  }
+}`;
