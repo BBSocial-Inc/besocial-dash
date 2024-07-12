@@ -58,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const httpLink = createHttpLink({
-    uri: "http://localhost:4000/graphql", //PROD or DEV
+    uri: "https://prod.joinb.social/graphql", //PROD or DEV
   });
 
   const authLink = setContext((_, { headers }) => {
