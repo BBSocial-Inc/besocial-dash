@@ -1,7 +1,7 @@
 export const AppConstants = {
   // API_URL: "https://staging.joinb.social/graphql",
   // API_URL: "https://prod.joinb.social/graphql",
-  API_URL: "http://localhost:4000/graphql",
+  API_URL: "https://prod.joinb.social/graphql",
   WEB_SOCKET_URL: "wss://prod-api.playcandor.com/graphql",
   STRIPE_PUBLISHABLE_KEY:
     "pk_test_51MldA2B5aZ5gNVV7LSExO15WDl7AVRyr01THDxmUhCgyqHa8328KQe1aS5dnr8WPEyK2fLOh13FdFHBO4gAINKKm00LiHVC6OQ",
