@@ -5,6 +5,7 @@ import * as React from "react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
+import { Icons } from "@/components/icons";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toaster } from "evergreen-ui";
@@ -19,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { useMutation, } from "@apollo/client";
 import { CHANGE_WITHDRAW_REQUEST_STATUS } from "@/graphql/mutation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -27,21 +29,29 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
+  const { toast } = useToast();
   const data: any = row.original;
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [areButtonsHidden, setAreButtonsHidden] = React.useState<boolean>(false);
 
   const [changeStatus, changeStatusq] = useMutation<any>(CHANGE_WITHDRAW_REQUEST_STATUS, {
     onCompleted(data) {
-      // alert(data?.AdminGetUsers);
       setIsLoading(false);
-      toaster.notify("Successful");
-      // window.location.reload();
+      toast({
+        title: "Status Update Successfull.",
+        variant: "default",
+        description: data?.AdminUpdateWithdrawStatus.message,
+      });
     },
     onError(error) {
       setIsLoading(false);
-      toaster.danger("Error");
-      console.log(error, "data");
+      toast({
+        title: "Status Update Unsuccessfull.",
+        variant: "destructive",
+        description: error.message,
+      });
+      console.log("Error: ", error);
     },
   });
 
@@ -121,37 +131,48 @@ export function DataTableRowActions<TData>({
             />
           </div>
         </div>
-        {data.status != 'in_progress' ?? (<DialogFooter>
-          <Button
-            type="button"
-            onClick={() => {
-              setIsLoading(true);
-              changeStatus({
-                variables: {
-                  withdrawId: data?._id,
-                  status: "completed",
-                },
-              });
+        {data.status === 'in_progress' && (
+          <DialogFooter>
+            {!areButtonsHidden && (
+              <>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    setAreButtonsHidden(true);
+                    setIsLoading(true);
+                    changeStatus({
+                      variables: {
+                        withdrawId: data?._id,
+                        status: "completed",
+                      },
+                    });
+                  }}
+                >
+                  Approve
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    setAreButtonsHidden(true);
+                    setIsLoading(true);
+                    changeStatus({
+                      variables: {
+                        withdrawId: data?._id,
+                        status: "rejected",
+                      },
+                    });
+                  }}
+                >
+                  Reject
+                </Button>
+              </>
+            )}
 
-            }}
-          >
-            {changeStatusq.loading ? "Loading" : "Approve"}
-          </Button>
-          <Button
-            type="button"
-            onClick={() => {
-              setIsLoading(true);
-              changeStatus({
-                variables: {
-                  withdrawId: data?._id,
-                  status: "rejected",
-                },
-              });
-            }}
-          >
-            {changeStatusq.loading ? "Loading" : "Reject"}
-          </Button>
-        </DialogFooter>)}
+            {isLoading && (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            )}
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );
