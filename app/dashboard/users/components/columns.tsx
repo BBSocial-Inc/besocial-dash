@@ -64,6 +64,21 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
+    accessorKey: "how_hear_about_us",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Heard from" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("how_hear_about_us") ?? 'N/A'}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "auth_type_admin",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="auth_type" />
