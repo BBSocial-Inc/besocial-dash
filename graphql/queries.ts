@@ -1179,6 +1179,7 @@ export const ADMIN_USER = gql`
         email_admin
         birthday_admin
         auth_type_admin
+        how_hear_about_us
         created_at
         country
         platform
