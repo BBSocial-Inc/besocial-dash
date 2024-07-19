@@ -135,8 +135,8 @@ export const VERIFY_OTP = gql`
 `;
 
 export const CHANGE_WITHDRAW_REQUEST_STATUS = gql`
-mutation AdminUpdateWithdrawStatus($withdrawId: String, $status: String) {
-  AdminUpdateWithdrawStatus(withdraw_id: $withdrawId, status: $status) {
+mutation AdminUpdateWithdrawStatus($withdrawId: String, $status: String, $reason: String) {
+  AdminUpdateWithdrawStatus(withdraw_id: $withdrawId, status: $status, reason: $reason) {
     status
     message
     json
