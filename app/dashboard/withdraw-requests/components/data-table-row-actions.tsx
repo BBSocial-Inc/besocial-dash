@@ -62,11 +62,7 @@ export function DataTableRowActions<TData>({
         <DialogTrigger asChild>
           <Button
             variant="ghost"
-            className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-          >
-            <DotsHorizontalIcon className="h-4 w-4" />
-            <span className="sr-only">View Request</span>
-          </Button>
+          >View</Button>
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[425px]">
@@ -137,11 +133,11 @@ export function DataTableRowActions<TData>({
       </Dialog>
 
       {data.status === 'in_progress' && (
-        <DialogFooter>
+        <>
           {!areButtonsHidden && (
             <>
               <Button
-                variant="default"
+                variant="ghost"
                 onClick={() => {
                   setAreButtonsHidden(true);
                   setIsLoading(true);
@@ -159,7 +155,7 @@ export function DataTableRowActions<TData>({
               <Dialog>
                 <DialogTrigger asChild>
                   <Button
-                    variant="default"
+                    variant="ghost"
                   >
                     Invalid
                   </Button>
@@ -207,7 +203,7 @@ export function DataTableRowActions<TData>({
           {isLoading && (
             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
-        </DialogFooter>
+        </>
       )}
     </>
   );
